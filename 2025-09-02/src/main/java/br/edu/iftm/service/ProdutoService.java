@@ -11,16 +11,19 @@ import br.edu.iftm.repositories.ProdutoRepository;
 
 @Service
 public class ProdutoService {
+	
 	@Autowired
 	private ProdutoRepository produtoRepository;
 	
-	public List<Produto> buscarTodos() {
-		return this.produtoRepository.findAll();
-	}
-	
+	@Transactional(readOnly = true)
 	public Produto buscarPorId(Long id) {
 		Produto p = this.produtoRepository.findById(id).get();
 		return p;
+	}	
+
+	@Transactional(readOnly = true)
+	public List<Produto> buscarTodos() {		
+		return this.produtoRepository.findAll();
 	}
 	
 	@Transactional
@@ -30,11 +33,10 @@ public class ProdutoService {
 	}
 	
 	@Transactional
-	public Produto atualizar(Long id, Produto produto) {
-		@SuppressWarnings("deprecation")
+	public Produto atualizar(long id, Produto produto) {
 		Produto entidade = this.produtoRepository.getOne(id);
 		entidade = this.produtoRepository.save(entidade);
-		return entidade;
+		return entidade;		
 	}
 	
 	@Transactional

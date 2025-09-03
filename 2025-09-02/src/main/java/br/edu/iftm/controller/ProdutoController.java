@@ -20,42 +20,38 @@ import br.edu.iftm.service.ProdutoService;
 @RestController
 @RequestMapping(value = "/produtos")
 public class ProdutoController {
+	
 	@Autowired
 	private ProdutoService produtoService;
 	
-	// GET
-	@GetMapping()
+	@GetMapping
 	public ResponseEntity<List<Produto>> buscarTodos(){
-		List<Produto> p = produtoService.buscarTodos();
-		return ResponseEntity.ok().body(p);
+		List<Produto> lista = produtoService.buscarTodos();
+		return ResponseEntity.ok().body(lista);		
 	}
 	
-	// GET/id
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Produto> buscarPorId(@PathVariable Long id){
-		Produto p = produtoService.buscarPorId(id);
-		return ResponseEntity.ok(p);
+	public ResponseEntity<Produto> buscaPorId(@PathVariable Long id){
+		Produto produto = produtoService.buscarPorId(id);
+		return ResponseEntity.ok().body(produto);
 	}
 	
-	// POST
-	@PostMapping()
+	@PostMapping
 	public ResponseEntity<Produto> inserir(@RequestBody Produto produto){
-		Produto p = this.produtoService.inserir(produto);
-		return new ResponseEntity<>(p, HttpStatus.CREATED);
+		Produto entidade = produtoService.inserir(produto);
+		return ResponseEntity.status(HttpStatus.CREATED).body(entidade);
+		//return new ResponseEntity<>(produto, HttpStatus.CREATED);
 	}
 	
-	// PUT / PATCH
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Produto> atualizar(@PathVariable Long id, @RequestBody Produto produto) {
-		Produto p = this.produtoService.atualizar(id, produto);
-		return ResponseEntity.ok().body(p);
+	public ResponseEntity<Produto> atualizar(@PathVariable Long id, @RequestBody Produto produto){
+		Produto produtoAtualizado = produtoService.atualizar(id, produto);
+		return  ResponseEntity.ok().body(produtoAtualizado);
 	}
 	
-	// DELETE
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<Void> deletar(@PathVariable Long id) {
+	public ResponseEntity<Void> delete(@PathVariable Long id){
 		produtoService.deletar(id);
 		return ResponseEntity.noContent().build();
 	}
-	
 }

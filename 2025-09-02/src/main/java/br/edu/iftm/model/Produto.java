@@ -12,12 +12,12 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_produto")
-public class Produto implements Serializable{
-	private static final long serialVersionUID = 1L;
+public class Produto implements Serializable{	
+	private static final long serialVersionUID = -633800117035532583L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long id;	
 	private String nome;
 	
 	@Column(columnDefinition = "TEXT")
@@ -25,12 +25,12 @@ public class Produto implements Serializable{
 	private Double preco;
 	private String imgUrl;
 	
-	@Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
+	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private Instant date;
-
+	
 	public Produto() {}
 	
-	public Produto(Long id, String nome, String descricao, Double preco, String imgUrl, Instant date) {
+	public Produto(Long id, String nome, String descricao, Double preco, String imgUrl, Instant date) {		
 		this.id = id;
 		this.nome = nome;
 		this.descricao = descricao;
@@ -86,5 +86,4 @@ public class Produto implements Serializable{
 	public void setDate(Instant date) {
 		this.date = date;
 	}
-
 }
